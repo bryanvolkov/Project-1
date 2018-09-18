@@ -1,0 +1,17 @@
+import java.io.File;
+import java.util.Scanner;
+
+public class Driver {
+	static Scanner scn;
+	public static void main(String[] args) {
+	    // pass the path to the file as a parameter 
+	    File file = 
+	      new File("C:\\Users\\pankaj\\Desktop\\test.txt"); 
+	    scn = new Scanner(file); 
+	  
+	    while (scn.hasNextLine()) 
+	      System.out.println(scn.nextLine()); 
+
+	}
+
+}

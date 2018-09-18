@@ -1,0 +1,15 @@
+
+public class LexicalAnalyzer {
+	public String tokenize(String code) {
+		
+		return "";
+	}
+	
+	private void state1() {
+		
+	}
+	
+	private void state2() {
+		
+	}
+}
