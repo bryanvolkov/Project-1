@@ -16,19 +16,19 @@ public class LexicalAnalyzer {
 	};
 	
 	// index that will be used to access a state function from the array
-	private int currentState = 0; // starting at state0
+	private int state = 0; // starting at state0
 	
 	// main function that will generate tokens
 	public String tokenize(String code) {
 		// check each character from the source code
 		for(int i = 0; i < code.length(); i++) {
-			states[currentState].check(code.charAt(i));
+			states[state].check(code.charAt(i));
 		}
 		return "";
 	}
 	
 	private void state0(char c) {
-		
+		if()
 	}
 	
 	private void state1(char c) {
