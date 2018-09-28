@@ -1,6 +1,0 @@
-
-public class LexicalAnalyzer {
-	public String tokenize() {
-		
-	}
-}
