@@ -244,7 +244,8 @@ public class LexicalAnalyzer {
 	private void state11(char c) {
 		nextState = 0;
 		if(c == '/')
-			i = line.length(); // move on to next line
+			// move on to next line
+			i = line.length();
 		else if(c == '*') {
 			// find */
 			for(i++; i < line.length(); i++)

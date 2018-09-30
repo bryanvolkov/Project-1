@@ -63,11 +63,18 @@ public class LexicalAnalyzer {
 	}
 	
 	private void state0(char c) {
-		if( c == ' ') start = i+1;
-		else if('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || c == '_') nextState = 1;
-		else if('1' <= c && c <= '9') nextState = 2;
-		else if(c == '0') nextState = 7;
-		else if(c == '"') nextState = 10;
+		if( c == ' ')
+			start = i+1;
+		else if('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || c == '_')
+			nextState = 1;
+		else if('1' <= c && c <= '9')
+			nextState = 2;
+		else if(c == '0') {
+			nextState = 7;
+		}
+		else if(c == '"') {
+			nextState = 10;
+		}
 		else if(c == '+') {
 			System.out.println(line.substring(i, start = i+1) );
 			// generate plus token
@@ -81,17 +88,31 @@ public class LexicalAnalyzer {
 			System.out.println(line.substring(i, start = i+1) );
 			// generate multiplication token
 		}
-		else if(c == '/') nextState = 11;
+		else if(c == '/') {
+			nextState = 11;
+		}
 		else if(c == '%') {
 			System.out.println(line.substring(i, start = i+1) );
 			// generate modulus token
 		}
-		else if(c == '<') nextState = 12;
-		else if(c == '>') nextState = 13;
-		else if(c == '=') nextState = 14;
-		else if(c == '!') nextState = 15;
-		else if(c == '&') nextState = 16;
-		else if(c == '|') nextState = 17;
+		else if(c == '<') {
+			nextState = 12;
+		}
+		else if(c == '>') {
+			nextState = 13;
+		}
+		else if(c == '=') {
+			nextState = 14;
+		}
+		else if(c == '!') {
+			nextState = 15;
+		}
+		else if(c == '&') {
+			nextState = 16;
+		}
+		else if(c == '|') {
+			nextState = 17;
+		}
 		else if(c == ';') {
 			System.out.println(line.substring(i, start = i+1) );
 			// generate semicolon token
@@ -137,7 +158,9 @@ public class LexicalAnalyzer {
 	}
 	
 	private void state1(char c) {
-		if(!('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || c == '_' || '0' <= c && c <= '9')){
+		if('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || c == '_' || '0' <= c && c <= '9')
+			nextState = 1;
+		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
 			// is identifier a key word?
@@ -149,8 +172,14 @@ public class LexicalAnalyzer {
 	}
 	
 	private void state2(char c) {
-		if(c == '.') nextState = 3;
-		else if(!('0' <= c && c <= '9')){
+		if('0' <= c && c <= '9') {
+			
+			nextState = 2;
+		}
+		else if(c == '.') {
+			nextState = 3;
+		}
+		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
 			// generate int constant
@@ -159,9 +188,13 @@ public class LexicalAnalyzer {
 	}
 	
 	private void state3(char c) {
-		if (c == 'E' || c == 'e') 
+		if('0' <= c && c <= '9') {
+			nextState = 3;
+		}
+		else if (c == 'E' || c == 'e') {
 			nextState = 4;
-		else if(!('0' <= c && c <= '9')){
+		}
+		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
 			// generate double constant
@@ -170,24 +203,30 @@ public class LexicalAnalyzer {
 	}
 	
 	private void state4(char c) {
-		if('0' <= c && c <= '9')
+		if('0' <= c && c <= '9') {
 			nextState = 6;
-		else if(c == '+' || c == '-')
+		}
+		else if(c == '+' || c == '-') {
 			nextState = 5;
+		}
 		else {
 			// throw error
 		}
 	}
 	private void state5(char c) {
-		if('0' <= c && c <= '9')
+		if('0' <= c && c <= '9') {
 			nextState = 6;
+		}
 		else {
 			// throw error
 		}
 	}
 	
-	private void state6(char c) { 
-		if(!('0' <= c && c <= '9')) {
+	private void state6(char c) {
+		if('0' <= c && c <= '9') {
+			nextState = 6;
+		}
+		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
 			// generate double constant
@@ -196,12 +235,15 @@ public class LexicalAnalyzer {
 	}
 	
 	private void state7(char c) {
-		if('0' <= c && c <= '9')
+		if('0' <= c && c <= '9') {
 			nextState = 2;
-		else if(c == '.')
+		}
+		else if(c == '.') {
 			nextState = 3;
-		else if(c == 'x' || c == 'X')
+		}
+		else if(c == 'x' || c == 'X') {
 			nextState = 8;
+		}
 		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
@@ -210,8 +252,9 @@ public class LexicalAnalyzer {
 		}
 	}
 	private void state8(char c) {
-		if('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9')
+		if('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9') {
 			nextState = 9;
+		}
 		else {
 			// throw error
 			System.out.println("ERROR: Invalid character found");
@@ -220,14 +263,16 @@ public class LexicalAnalyzer {
 		}
 	}
 	private void state9(char c) {
-		if(!('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9')) {
+		if('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9') {
+			nextState = 9;
+		}
+		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
 			// generate int constant
 			nextState = 0;
 		}
 	}
-	
 	private void state10(char c) {
 		// find "
 		for(start = i++; i < line.length(); i++)
@@ -242,14 +287,17 @@ public class LexicalAnalyzer {
 		nextState = 0;
 	}
 	private void state11(char c) {
-		nextState = 0;
-		if(c == '/')
-			i = line.length(); // move on to next line
+		if(c == '/') {
+			// move on to next line
+			i = line.length();
+			nextState = 0;
+		}
 		else if(c == '*') {
 			// find */
 			for(i++; i < line.length(); i++)
 				if(line.charAt(i) == '*' && (i+1)< line.length() && line.charAt(i+1) == '/') {
 					start = i = i + 2;
+					nextState = 0;
 					return;}
 			
 			while(scn.hasNext()) {
@@ -257,12 +305,14 @@ public class LexicalAnalyzer {
 				for(i = 0; i < line.length(); i++)
 					if(line.charAt(i) == '*' && (i+1)< line.length() && line.charAt(i+1) == '/') {
 						start = i = i + 2;
+						nextState = 0;
 						return;}
 			}
 		}
 		else {
 			System.out.println(line.substring(start, start = i));
 			// generate division token
+			nextState = 0;
 		}
 	}
 	

@@ -196,12 +196,15 @@ public class LexicalAnalyzer {
 	}
 	
 	private void state7(char c) {
-		if('0' <= c && c <= '9')
+		if('0' <= c && c <= '9') {
 			nextState = 2;
-		else if(c == '.')
+		}
+		else if(c == '.') {
 			nextState = 3;
-		else if(c == 'x' || c == 'X')
+		}
+		else if(c == 'x' || c == 'X') {
 			nextState = 8;
+		}
 		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
@@ -210,8 +213,9 @@ public class LexicalAnalyzer {
 		}
 	}
 	private void state8(char c) {
-		if('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9')
+		if('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9') {
 			nextState = 9;
+		}
 		else {
 			// throw error
 			System.out.println("ERROR: Invalid character found");
@@ -220,14 +224,16 @@ public class LexicalAnalyzer {
 		}
 	}
 	private void state9(char c) {
-		if(!('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9')) {
+		if('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9') {
+			nextState = 9;
+		}
+		else {
 			System.out.println(line.substring(start, i--));
 			start = i+1;
 			// generate int constant
 			nextState = 0;
 		}
 	}
-	
 	private void state10(char c) {
 		// find "
 		for(start = i++; i < line.length(); i++)
@@ -242,14 +248,17 @@ public class LexicalAnalyzer {
 		nextState = 0;
 	}
 	private void state11(char c) {
-		nextState = 0;
-		if(c == '/')
-			i = line.length(); // move on to next line
+		if(c == '/') {
+			// move on to next line
+			i = line.length();
+			nextState = 0;
+		}
 		else if(c == '*') {
 			// find */
 			for(i++; i < line.length(); i++)
 				if(line.charAt(i) == '*' && (i+1)< line.length() && line.charAt(i+1) == '/') {
 					start = i = i + 2;
+					nextState = 0;
 					return;}
 			
 			while(scn.hasNext()) {
@@ -257,12 +266,14 @@ public class LexicalAnalyzer {
 				for(i = 0; i < line.length(); i++)
 					if(line.charAt(i) == '*' && (i+1)< line.length() && line.charAt(i+1) == '/') {
 						start = i = i + 2;
+						nextState = 0;
 						return;}
 			}
 		}
 		else {
 			System.out.println(line.substring(start, start = i));
 			// generate division token
+			nextState = 0;
 		}
 	}
 	
