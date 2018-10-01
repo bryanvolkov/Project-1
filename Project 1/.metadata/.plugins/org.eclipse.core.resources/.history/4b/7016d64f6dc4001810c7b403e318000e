@@ -73,24 +73,24 @@ public class LexicalAnalyzer {
 		else if(c == '0') nextState = 7;
 		else if(c == '"') nextState = 10;
 		else if(c == '+') {
-			System.out.println(line.substring(i, start = i+1));
+			//System.out.println(tokens += line.substring(i, start = i+1) + " " );
 			tokens += "plus" + " " ;
 			// generate plus token
 		}
 		else if(c == '-') {
-			System.out.println(line.substring(i, start = i+1));
+			//System.out.println(tokens += line.substring(i, start = i+1) + " " );
 			tokens += "minus" + " ";
 			// generate minus token
 			
 		}
 		else if(c == '*') {
-			System.out.println(line.substring(i, start = i+1));
+			//System.out.println(tokens += line.substring(i, start = i+1) + " " );
 			tokens += "multiplication" + " ";
 			// generate multiplication token
 		}
 		else if(c == '/') nextState = 11;
 		else if(c == '%') {
-			System.out.println(line.substring(i, start = i+1));
+			//System.out.println(tokens += line.substring(i, start = i+1) + " " );
 			tokens += "modulus" + " ";
 			// generate modulus token
 		}
@@ -101,48 +101,48 @@ public class LexicalAnalyzer {
 		else if(c == '&') nextState = 16;
 		else if(c == '|') nextState = 17;
 		else if(c == ';') {
-			System.out.println(line.substring(i, start = i+1) );
+			//System.out.println(line.substring(i, start = i+1) );
 			tokens += "semicolon" + " ";
 			// generate semicolon token
 		}
 		else if(c == ',') {
-			System.out.println(line.substring(i, start = i+1) );
+			//System.out.println(line.substring(i, start = i+1) );
 			tokens += "comma" + " ";
 			// generate comma token
 		}
 		else if(c == '.') {
-			System.out.println(line.substring(i, start = i+1) );
+			//System.out.println(line.substring(i, start = i+1) );
 			tokens += "period" + " ";
 			// generate period token
 		}
 		else if(c == '{') {
-			System.out.println(line.substring(i, start = i+1) );
-			tokens += "leftbrace" + " ";
-			// generate token
-		}
-		else if(c == '}') {
-			System.out.println(line.substring(i, start = i+1) );
-			tokens += "rightbrace" + " ";
-			// generate token			
-		}
-		else if(c == '(') {
-			System.out.println(line.substring(i, start = i+1) );
-			tokens += "leftparen" + " ";
-			// generate token
-		}
-		else if(c == ')') {
-			System.out.println(line.substring(i, start = i+1) );
-			tokens += "rightparen" + " ";
-			// generate token
-		}
-		else if(c == '[') {
-			System.out.println(line.substring(i, start = i+1) );
+			//System.out.println(line.substring(i, start = i+1) );
 			tokens += "leftbracket" + " ";
 			// generate token
 		}
-		else if(c == ']') {
-			System.out.println(line.substring(i, start = i+1) );
+		else if(c == '}') {
+			//System.out.println(line.substring(i, start = i+1) );
 			tokens += "rightbracket" + " ";
+			// generate token			
+		}
+		else if(c == '(') {
+			//System.out.println(line.substring(i, start = i+1) );
+			tokens += "leftparenthesis" + " ";
+			// generate token
+		}
+		else if(c == ')') {
+			//System.out.println(line.substring(i, start = i+1) );
+			tokens += "rightparenthesis" + " ";
+			// generate token
+		}
+		else if(c == '[') {
+			//System.out.println(line.substring(i, start = i+1) );
+			tokens += "leftparenthesis" + " ";
+			// generate token
+		}
+		else if(c == ']') {
+			//System.out.println(line.substring(i, start = i+1) );
+			tokens += "rightparenthesis" + " ";
 			// generate token
 		}
 		else {
@@ -155,7 +155,7 @@ public class LexicalAnalyzer {
 	private void state1(char c) {
 		if(!('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || c == '_' || '0' <= c && c <= '9')){
 			String identifier = line.substring(start, i--);
-			System.out.println(identifier);
+			//System.out.println(tokens += identifier + " ");
 			tokens += identifier + " ";
 			start = i+1;
 			// is identifier a boolean constant?
@@ -178,7 +178,7 @@ public class LexicalAnalyzer {
 	private void state2(char c) {
 		if(c == '.') nextState = 3;
 		else if(!('0' <= c && c <= '9')){
-			System.out.println(line.substring(start, i--));
+//			System.out.println( tokens += line.substring(start, i--) + " ");
 			tokens += "intconstant" + " ";
 			start = i+1;
 			// generate int constant
@@ -190,7 +190,7 @@ public class LexicalAnalyzer {
 		if (c == 'E' || c == 'e') 
 			nextState = 4;
 		else if(!('0' <= c && c <= '9')){
-			System.out.println(line.substring(start, i--));
+//			System.out.println(line.substring(start, i--));
 			tokens += "doubleconstant"  + " ";
 			start = i+1;
 			// generate double constant
@@ -217,7 +217,7 @@ public class LexicalAnalyzer {
 	
 	private void state6(char c) { 
 		if(!('0' <= c && c <= '9')) {
-			System.out.println(line.substring(start, i--));
+//			System.out.println(line.substring(start, i--));
 			tokens += "doubleconstant" + " ";
 			start = i+1;
 			// generate double constant
@@ -233,7 +233,7 @@ public class LexicalAnalyzer {
 		else if(c == 'x' || c == 'X')
 			nextState = 8;
 		else {
-			System.out.println(line.substring(start, i--));
+//			System.out.println(line.substring(start, i--));
 			tokens += "intconstant" + " ";
 			start = i+1;
 			// generate constant int 0
@@ -252,7 +252,7 @@ public class LexicalAnalyzer {
 	}
 	private void state9(char c) {
 		if(!('a' <= c && c <= 'f' || 'A' <= c && c <= 'F' || '0' <= c && c <= '9')) {
-			System.out.println(line.substring(start, i--));
+//			System.out.println(line.substring(start, i--));
 			tokens += "intconstant" + " ";
 			start = i+1;
 			// generate int constant
@@ -270,7 +270,7 @@ public class LexicalAnalyzer {
 			error = true;
 			return;
 		}
-		System.out.println(line.substring(start, i));
+//		System.out.println(line.substring(start, i));
 		tokens += "stringconstant" + " ";
 		nextState = 0;
 	}
@@ -294,21 +294,21 @@ public class LexicalAnalyzer {
 			}
 		}
 		else {
-			System.out.println(line.substring(start, start = i));
-			tokens += "division" + " ";
+//			System.out.println(line.substring(start, start = i));
+			tokens += line.substring(start, start = i) + " ";
 			// generate division token
 		}
 	}
 	
 	private void state12(char c) {
 		if(c == '=') {
-			System.out.println(line.substring(start, start = i + 1));
-			tokens += "lessequal" + " ";
+//			System.out.println(line.substring(start, start = i + 1));
+			tokens += line.substring(start, start = i + 1) + " ";
 			// generate token
 		}
 		else {
-			System.out.println(line.substring(start, start = i));
-			tokens += "less" + " ";
+//			System.out.println(line.substring(start, start = i));
+			tokens += line.substring(start, start = i) + " ";
 			i--;
 			// generate token
 		}
@@ -317,13 +317,13 @@ public class LexicalAnalyzer {
 	
 	private void state13(char c) {
 		if(c == '=') {
-			System.out.println(line.substring(start, start = i + 1));
-			tokens += "greaterequal" + " ";
+//			System.out.println(line.substring(start, start = i + 1));
+			tokens += line.substring(start, start = i + 1) + " ";
 			// generate token
 		}
 		else {
-			System.out.println(line.substring(start, start = i));
-			tokens += "greater" + " ";
+			//System.out.println(line.substring(start, start = i));
+			tokens += line.substring(start, start = i) + " ";
 			i--;
 			// generate token
 		}
@@ -332,13 +332,13 @@ public class LexicalAnalyzer {
 	
 	private void state14(char c) {
 		if(c == '=') {
-			System.out.println(line.substring(start, start = i + 1));
-			tokens += "equals" + " ";
+//			System.out.println(line.substring(start, start = i + 1));
+			tokens += line.substring(start, start = i + 1) + " ";
 			// generate token
 		}
 		else {
-			System.out.println(line.substring(start, start = i));
-			tokens += "assignop" + " ";
+			//System.out.println(line.substring(start, start = i));
+			tokens += line.substring(start, start = i) + " ";
 			i--;
 			// generate token
 		}
@@ -346,13 +346,13 @@ public class LexicalAnalyzer {
 	}
 	private void state15(char c) {
 		if(c == '=') {
-			System.out.println(line.substring(start, start = i + 1));
-			tokens += "notequals" + " ";
+//			System.out.println(line.substring(start, start = i + 1));
+			tokens += line.substring(start, start = i + 1) + " ";
 			// generate token
 		}
 		else {
-			System.out.println(line.substring(start, start = i));
-			tokens += "not" + " ";
+			//System.out.println(line.substring(start, start = i));
+			tokens += line.substring(start, start = i) + " ";
 			i--;
 			// generate token
 		}
@@ -360,8 +360,8 @@ public class LexicalAnalyzer {
 	}
 	private void state16(char c) {
 		if(c == '&') {
-			System.out.println(line.substring(start, start = i + 1));
-			tokens += "and" + " ";
+//			System.out.println(line.substring(start, start = i + 1));
+			tokens += line.substring(start, start = i + 1) + " ";
 			// generate token
 		}
 		else {
@@ -371,8 +371,8 @@ public class LexicalAnalyzer {
 	}
 	private void state17(char c) {
 		if(c == '|') {
-			System.out.println(line.substring(start, start = i + 1));
-			tokens += "or" + " ";
+//			System.out.println(line.substring(start, start = i + 1));
+			tokens += line.substring(start, start = i + 1) + " ";
 			// generate token
 		}
 		else {

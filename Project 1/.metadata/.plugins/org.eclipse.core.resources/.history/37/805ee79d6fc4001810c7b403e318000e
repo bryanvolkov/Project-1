@@ -117,32 +117,32 @@ public class LexicalAnalyzer {
 		}
 		else if(c == '{') {
 			System.out.println(line.substring(i, start = i+1) );
-			tokens += "leftbrace" + " ";
+			tokens += "leftbracket" + " ";
 			// generate token
 		}
 		else if(c == '}') {
 			System.out.println(line.substring(i, start = i+1) );
-			tokens += "rightbrace" + " ";
+			tokens += "rightbracket" + " ";
 			// generate token			
 		}
 		else if(c == '(') {
 			System.out.println(line.substring(i, start = i+1) );
-			tokens += "leftparen" + " ";
+			tokens += "leftparenthesis" + " ";
 			// generate token
 		}
 		else if(c == ')') {
 			System.out.println(line.substring(i, start = i+1) );
-			tokens += "rightparen" + " ";
+			tokens += "rightparenthesis" + " ";
 			// generate token
 		}
 		else if(c == '[') {
 			System.out.println(line.substring(i, start = i+1) );
-			tokens += "leftbracket" + " ";
+			tokens += "leftparenthesis" + " ";
 			// generate token
 		}
 		else if(c == ']') {
 			System.out.println(line.substring(i, start = i+1) );
-			tokens += "rightbracket" + " ";
+			tokens += "rightparenthesis" + " ";
 			// generate token
 		}
 		else {

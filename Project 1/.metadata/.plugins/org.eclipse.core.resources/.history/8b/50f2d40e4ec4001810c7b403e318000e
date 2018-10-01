@@ -4,7 +4,7 @@ public class Driver {
 	static Scanner scn;
 	public static void main(String[] args) {
 		LexicalAnalyzer lexer = new LexicalAnalyzer();
-	    System.out.println(lexer.tokenize("code.txt"));
+	    lexer.tokenize("code.txt");
 
 	}
 
