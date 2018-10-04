@@ -147,7 +147,6 @@ public class LexicalAnalyzer {
 	    	output += "\n";
 	    }
 	    System.out.println("******************************************************************************");
-	    ids.output();
 		return output;
 	}
 	

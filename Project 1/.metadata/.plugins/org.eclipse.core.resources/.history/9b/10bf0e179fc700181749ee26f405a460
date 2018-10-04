@@ -83,7 +83,7 @@ public class LexicalAnalyzer {
 	public int BOOLEANCONSTANT = 47;
 	public int ID = 48;
 	
-	Trie keywords;// this trie is used to store the keywords to later search if an identifier is a keyword
+	Trie keywords;// this trie is used to search if an identifier is a keyword
 	
 	// index that will be used to access a state function from the array
 	private int nextState = 0; // starting at state0
@@ -94,7 +94,7 @@ public class LexicalAnalyzer {
 	String output;// used to store the tokens to be displayed as names and not numbers
 	
 	String[] tokens;
-	Trie ids; // this trie will store user-defined ids
+	Trie ids;
 	public LexicalAnalyzer() {
 		ids = new Trie();
 		tokens = new String[49];
@@ -147,7 +147,6 @@ public class LexicalAnalyzer {
 	    	output += "\n";
 	    }
 	    System.out.println("******************************************************************************");
-	    ids.output();
 		return output;
 	}
 	

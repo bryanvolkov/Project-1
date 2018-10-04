@@ -25,14 +25,7 @@ public class Trie {
         int ptr = Switch[valueOfSymbol];
         if(ptr == -1) {
             return false;
-        } 
-        else if(word.length() == 1) {
-        	if(Symbol[ptr] == '*') return true;
-        	else if(Next[ptr] != -1) {
-        		if(Symbol[Next[ptr]] == '*') return true;
-        	}else return false;
-        }
-        else{
+        } else if (word.length() > 1){
             valueOfSymbol = getNextSymbol();
             boolean exit = false;
             while(!exit) {
@@ -222,6 +215,5 @@ public class Trie {
             System.out.print("        ");
             j--;
         }
-        System.out.println();
     }
 }

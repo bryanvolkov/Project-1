@@ -1,9 +1,9 @@
 int fact (int x) {
 // recursive factorial function
  if (x && 1) return x*fact(x-1);
-// (x<1)
-// (x <1)
-// (x< 1)
+ (x<1);
+ (x <1);
+ (x< 1);
  else return 1;
 }
 
@@ -11,7 +11,7 @@ void main () { // this is a comment that should be ignored
 /* Fall Semester 2018
 CS 4110 project #1
 A lexical analyzer */
- int _x_cordinate;
+ int x;
  int total;
  println ("factorial of 10 is ", fact (10), " from the recursive function");
  total = 1; x = 1;
@@ -26,7 +26,7 @@ class cs4110 {
  double funny;
  boolean flag;
  string s;
- int [] a;
+ int [] b;
  flag = true;
  Funny = 0x89aBg; funny = 123456.0E+7;
  s = "hello world";

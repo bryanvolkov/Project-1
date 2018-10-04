@@ -25,14 +25,7 @@ public class Trie {
         int ptr = Switch[valueOfSymbol];
         if(ptr == -1) {
             return false;
-        } 
-        else if(word.length() == 1) {
-        	if(Symbol[ptr] == '*') return true;
-        	else if(Next[ptr] != -1) {
-        		if(Symbol[Next[ptr]] == '*') return true;
-        	}else return false;
-        }
-        else{
+        } else {
             valueOfSymbol = getNextSymbol();
             boolean exit = false;
             while(!exit) {
@@ -55,7 +48,7 @@ public class Trie {
                 }
             }
         }
-        return true;
+        return false;
     }
 
     // A method that sets default values to the switch, symbol, and next arrays.
@@ -220,8 +213,6 @@ public class Trie {
             }
             System.out.println("\n");
             System.out.print("        ");
-            j--;
         }
-        System.out.println();
     }
 }
