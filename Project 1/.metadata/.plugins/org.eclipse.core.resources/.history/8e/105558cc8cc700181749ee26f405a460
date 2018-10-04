@@ -1,0 +1,155 @@
+public class Trie {
+    
+    int[] Switch = new int[52];
+    char[] Symbol = new char[1000];
+    int[] Next = new int[1000];
+    String word;
+    int position;
+    
+    public Trie() {
+		setup();
+	}
+//    public static void main(String[] args) {
+//        Trie p = new Trie();
+//        p.setup();
+//        p.add("absolute");
+//        p.trie("absolutely");
+//        p.trie("abs");
+//        p.trie("break");
+//        p.trie("aly");
+//        p.trie("absolutenum");
+//        p.output();
+//    }
+    
+    public void setup() {
+        for(int i=0; i<52; i++) {
+            Switch[i] = -1;
+        }
+        for(int i=0; i<1000; i++) {
+            Symbol[i] = '_';
+            Next[i] = -1;
+        }
+    }
+    
+    public void add(String w) {
+        word = w;
+        position = 0;
+        
+        int valueOfSymbol = getNextSymbol();
+        int ptr = Switch[valueOfSymbol];
+        if(ptr == -1) {
+            char firstLetter = word.charAt(0);
+            if(firstLetter >= 97 && firstLetter <= 122)
+                Switch[firstLetter - 71] = create();
+            else
+                Switch[firstLetter - 65] = create();
+        } else {
+            valueOfSymbol = getNextSymbol();
+            boolean exit = false;
+            while(!exit) {
+                if(Symbol[ptr] == charOf(valueOfSymbol)) {
+                    if(!(position == word.length())) {
+                        ptr = ptr + 1;
+                        valueOfSymbol = getNextSymbol();
+                    } else {
+                        exit = true;
+                        Next[ptr+1] = create();
+                    }
+                } else if(Next[ptr] >= 0) {
+                    ptr = Next[ptr];
+                } else {
+                    position--;
+                    Next[ptr] = create();
+                    exit = true;
+                }
+            }
+        }
+    }
+    
+    public int getNextSymbol() {
+        int value;
+        char character = word.charAt(position);
+        
+        if(character >= 65 && character <= 90)
+            value = (int)character - 65;
+        else
+            value = (int)character - 71;
+        
+        position++;
+        
+        return value;
+    }
+    
+    public int create() {
+        int empty = 0;
+        int value;
+        while(Symbol[empty] != '_') {
+            empty++;
+        }
+        value = empty;
+        for(int i=position; i<word.length(); i++) {
+            Symbol[empty] = word.charAt(i);
+            empty++;
+        }
+        Symbol[empty] = '*';
+        return value;
+    }
+    
+    public char charOf(int num) {
+        char value;
+        
+        if(num >=26)
+            value = (char)(num + 71);
+        else
+            value = (char)(num + 65);
+                
+        return value;
+    }
+    
+    public void output() {
+        //Switch
+        System.out.print("         ");
+        for(int i=0; i<26; i++) {
+            System.out.print((char)(i+65) + "  ");
+        }
+        for(int i=0; i<26; i++) {
+            System.out.print((char)(i+97) + "  ");
+        }
+        System.out.println();
+        System.out.print("Switch: ");
+        for(int i=0; i<52; i++) {
+            System.out.print(Switch[i] + " ");
+        }
+        System.out.println("\n");
+        
+        //Symbol
+        System.out.print("         ");
+        for(int i=0; i<10; i++) {
+            System.out.print(i + "   ");
+        }
+        for(int i=10; i<24; i++) {
+            System.out.print(i + "  ");
+        }
+        System.out.println();
+        System.out.print("Symbol:  ");
+        for(int i=0; i<52; i++) {
+            System.out.print(Symbol[i] + "   ");
+        }
+        System.out.println("\n");
+        
+        //Next
+        System.out.print("         ");
+        for(int i=0; i<10; i++) {
+            System.out.print(i + "   ");
+        }
+        for(int i=10; i<24; i++) {
+            System.out.print(i + "  ");
+        }
+        System.out.println();
+        System.out.print("Next:    ");
+        for(int i=0; i<52; i++) {
+            System.out.print(Next[i] + "  ");
+        }
+        System.out.println();
+    }
+}

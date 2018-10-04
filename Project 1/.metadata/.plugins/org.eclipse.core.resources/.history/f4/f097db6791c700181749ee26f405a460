@@ -1,0 +1,222 @@
+///*
+//*   This class implements the trie algorithm. It has a search method that checks
+//*   if an identifier is present in the symbol table. It has an output method
+//*   that displays the switch, symbol, and next arrays in an organized manner
+//*   through the terminal window.
+//*/
+//
+//public class Trie {
+//    // Arrays to save the information of the identifiers being processed.
+//    int[] Switch = new int[52];
+//    char[] Symbol = new char[1000];
+//    int[] Next = new int[1000];
+//    // Keeps track of the current identifier being looked at.
+//    String word;
+//    // Keeps track of the current character position of an identifier.
+//    int position;
+//    
+//    // A method that takes in a string and returns true if the word is in the
+//    // symbol table and false if it isn't.
+//    public boolean search(String w) {
+//        word = w;
+//        position = 0;
+//        
+//        int valueOfSymbol = getNextSymbol();
+//        int ptr = Switch[valueOfSymbol];
+//        if(ptr == -1) {
+//            return false;
+//        } else {
+//            valueOfSymbol = getNextSymbol();
+//            boolean exit = false;
+//            while(!exit) {
+//                if(Symbol[ptr] == charOf(valueOfSymbol)) {
+//                    if(!(position == word.length())) {
+//                        ptr = ptr + 1;
+//                        valueOfSymbol = getNextSymbol();
+//                    } else {
+//                        if(Symbol[ptr+1] == '*')
+//                            return true;
+//                        else if(Next[ptr+1] >= 0)
+//                            return true;
+//                        else
+//                            return false;
+//                    }
+//                } else if(Next[ptr] >= 0) {
+//                    ptr = Next[ptr];
+//                } else {
+//                    return false;
+//                }
+//            }
+//        }
+//        return false;
+//    }
+//
+//    // A method that sets default values to the switch, symbol, and next arrays.
+//    // For switch and next, a -1 represents that nothing is stored in the given
+//    // position. For symbol, an underscore represents that a character isn't
+//    // stored there.
+//    public void setup() {
+//        for(int i=0; i<52; i++) {
+//            Switch[i] = -1;
+//        }
+//        for(int i=0; i<1000; i++) {
+//            Symbol[i] = '_';
+//            Next[i] = -1;
+//        }
+//    }
+//
+//    // A method that implements the trie algorithm. It takes in a string and stores
+//    // the word if it isn't already stored in the symbol table.
+//    public void trie(String w) {
+//        if(!search(w)) {
+//            word = w;
+//            position = 0;
+//        
+//            int valueOfSymbol = getNextSymbol();
+//            int ptr = Switch[valueOfSymbol];
+//            if(ptr == -1) {
+//                char firstLetter = word.charAt(0);
+//                if(firstLetter >= 97 && firstLetter <= 122)
+//                    Switch[firstLetter - 71] = create();
+//                else
+//                    Switch[firstLetter - 65] = create();
+//            } else {
+//                valueOfSymbol = getNextSymbol();
+//                boolean exit = false;
+//                while(!exit) {
+//                    if(Symbol[ptr] == charOf(valueOfSymbol)) {
+//                        if(!(position == word.length())) {
+//                            ptr = ptr + 1;
+//                            valueOfSymbol = getNextSymbol();
+//                        } else {
+//                            exit = true;
+//                            Next[ptr+1] = create();
+//                        }
+//                    } else if(Next[ptr] >= 0) {
+//                        ptr = Next[ptr];
+//                    } else {
+//                        position--;
+//                        Next[ptr] = create();
+//                        exit = true;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    // This method returns the next character of the word that is currently
+//    // being processed.
+//    public int getNextSymbol() {
+//        int value;
+//        char character = word.charAt(position);
+//        
+//        if(character >= 65 && character <= 90)
+//            value = (int)character - 65;
+//        else
+//            value = (int)character - 71;
+//        
+//        position++;
+//        
+//        return value;
+//    }
+//
+//    // This method adds the identifier to the symbol table by looking for the
+//    // next available location that can store it. It returns the initial location
+//    // of where the identifier began to be stored. This is used to set the values
+//    // of the switch and next array.
+//    public int create() {
+//        int empty = 0;
+//        int value;
+//        while(Symbol[empty] != '_') {
+//            empty++;
+//        }
+//        value = empty;
+//        for(int i=position; i<word.length(); i++) {
+//            Symbol[empty] = word.charAt(i);
+//            empty++;
+//        }
+//        Symbol[empty] = '*';
+//        return value;
+//    }
+//
+//    // A method that returns the character representation of a number.
+//    public char charOf(int num) {
+//        char value;
+//        
+//        if(num >=26)
+//            value = (char)(num + 71);
+//        else
+//            value = (char)(num + 65);
+//                
+//        return value;
+//    }
+//
+//    // The method that outputs the information from the switch, symbol, and next
+//    // arrays in an organized manner.
+//    public void output() {
+//        // Switch output
+//        // Print capital letters
+//        System.out.print("        ");
+//        for(int i=0; i<26; i++) {
+//            System.out.printf("%5c", (char)(i+65));
+//        }
+//        System.out.println();
+//        
+//        // Print first half of switch
+//        System.out.print("Switch: ");
+//        for(int i=0; i<26; i++) {
+//            System.out.printf("%5d", Switch[i]);
+//        }
+//        System.out.println("\n");
+//        
+//        // Print lower case letters
+//        System.out.print("        ");
+//        for(int i=0; i<26; i++) {
+//            System.out.printf("%5c", (char)(i+97));
+//        }
+//        System.out.println();
+//        
+//        // Print second half of switch
+//        System.out.print("Switch: ");
+//        for(int i=26; i<52; i++) {
+//            System.out.printf("%5d", Switch[i]);
+//        }
+//        System.out.println("\n");
+//        // Keeps track of how many elements have been printed for each row.
+//        int num = 0;
+//        System.out.print("        ");
+//        for(int j=0; Symbol[j] != '_'; j++) {
+//            // Goes to the next line when all the elements for the row have been printed.
+//            if(num == 26) {
+//                System.out.println();
+//                System.out.print("        ");
+//            }
+//            // Prints out the indices.
+//            for(int i=0; i<26; i++) {
+//                System.out.printf("%5d", j);
+//                j++;
+//            }
+//            System.out.println();
+//            System.out.print("Symbol: ");
+//            j = j-26;
+//            // Prints out the values in the symbol array.
+//            for(int i=0; i<26; i++) {
+//                System.out.printf("%5c", Symbol[j]);
+//                j++;
+//            }
+//            System.out.println();
+//            System.out.print("Next:   ");
+//            j = j-26;
+//            // Prints out the values in the next array.
+//            for(int i=0; i<26; i++) {
+//                if(Next[j] == -1)
+//                    System.out.printf("%5s", "");
+//                else
+//                    System.out.printf("%5d", Next[j]);
+//                j++;
+//            }
+//            System.out.println("\n");
+//            System.out.print("        ");
+//        }
+//    }
+//}
